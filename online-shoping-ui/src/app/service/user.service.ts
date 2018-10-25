@@ -17,8 +17,8 @@ export class UserService {
 
     register(user: User) {
         console.log("insde userserive registration");
-       return this.http.post(`${config.apiUrl}/users/register`, user);
-      // return this.http.post<any>('api/heroes');
+       //return this.http.post(`${config.apiUrl}/users/register`, user);
+      return this.http.post<any>('api/heroes',"test");
     }
     // update(user: User) {
     //     return this.http.put(`${config.apiUrl}/users/` + user.id, user);
