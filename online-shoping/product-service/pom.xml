@@ -4,12 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.evoke.onlineShopping</groupId>
-	<artifactId>SHS_productService</artifactId>
+	<artifactId>product-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>SHS_productService</name>
-	<description>product-service</description>
+	<name>product-service</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -78,4 +77,5 @@
 	</build>
 
 
+	<description>product-service</description>
 </project>
