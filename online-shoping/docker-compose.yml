@@ -1,67 +1,17 @@
 version: "3"
 
 services:
-  app:
-    build: .
+  eureka:
+    build: ./eureka-server
     ports:
-    - "8888:8080"
-    environment:
-    - SPRING_PROFILES_ACTIVE=local-dev
-    - SPRING_DATASOURCE_URL=jdbc:sqlserver://db:1433;databaseName=svdup;user=svdup;password=Password1
-    - SVD_ADMIN_USER_EMAIL=mdenning@cardinalsolutions.com
-    - SVD_ADMIN_USER_FIRST_NAME=Marc Denning
-    - SVD_ADMIN_USER_PASSWORD=password
-    - SVD_JWT_SECRET=ThisIsASecret
-    - SVD_JWT_ISSUER=http://localhost:8888
-    - SVD_JWT_EXPIRATION=360000
-    - SVD_APIKEYS_KEYS=k2dRFbvCb2gfTdKwsG4oYqcHr8nvENG9
-    - SVD_USER_APPROVE_APPROVE_URL=http://localhost:4200/user-approved
-    - SVD_USER_APPROVE_NOT_FOUND_URL=http://localhost:4200/404
-    - SENDGRID_API_KEY=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
-    - STRIPE_SECRET_KEY=sk_test_3VxbDomusm6N1m5mg4hWGrjH
-    - AZURE_NOTIFICATIONHUB_CONNECTION_STRING=Endpoint=sb://svd-up-dev.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=afc5M+9Bqzi07k7tj7mYLtF/R+wYxOGx200r+BqOGNo=
-    - AZURE_NOTIFICATIONHUB_HUB_PATH=svd-up-dev-hub
-    - APPLICATION_INSIGHTS_IKEY=9cfc7901-4c2d-4be7-908f-68e19da98f02
-    links:
-    - db
-  web-container:
-    build:
-      context: ./
-      dockerfile: Dockerfile-tomcat
-    ports:
-    - "8989:8080"
-    environment:
-    - SPRING_PROFILES_ACTIVE=dev
-    - SPRING_DATASOURCE_URL=jdbc:sqlserver://db:1433;databaseName=svdup;user=svdup;password=Password1
-    - SVD_ADMIN_USER_EMAIL=mdenning@cardinalsolutions.com
-    - SVD_ADMIN_USER_FIRST_NAME=Marc Denning
-    - SVD_ADMIN_USER_PASSWORD=password
-    - SVD_JWT_SECRET=ThisIsASecret
-    - SVD_JWT_ISSUER=http://localhost:8989
-    - SVD_JWT_EXPIRATION=360000
-    - SVD_APIKEYS_KEYS=k2dRFbvCb2gfTdKwsG4oYqcHr8nvENG9
-    - SVD_USER_APPROVE_APPROVE_URL=http://localhost:4200/user-approved
-    - SVD_USER_APPROVE_NOT_FOUND_URL=http://localhost:4200/404
-    - SENDGRID_API_KEY=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
-    - STRIPE_SECRET_KEY=sk_test_3VxbDomusm6N1m5mg4hWGrjH
-    - AZURE_NOTIFICATIONHUB_CONNECTION_STRING=Endpoint=sb://svd-up-dev.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=afc5M+9Bqzi07k7tj7mYLtF/R+wYxOGx200r+BqOGNo=
-    - AZURE_NOTIFICATIONHUB_HUB_PATH=svd-up-dev-hub
-    - APPLICATION_INSIGHTS_IKEY=9cfc7901-4c2d-4be7-908f-68e19da98f02
-    links:
-    - db
-  docs:
-    build: ./apidocs
-    ports:
-    - "3000:3000"
-  db:
-    image: microsoft/mssql-server-linux
-    environment:
-    - ACCEPT_EULA=Y
-    - SA_PASSWORD=Password1
-    ports:
-    - "1433:1433"
-    volumes:
-    - mssql-data:/var/opt/mssql
+      - 8761:8761
 
-volumes:
-  mssql-data:
+  customer:
+    build: ./customer-service
+    ports:
+      - 9098:9098
+
+  zuulserver:
+    build: ./zuul-server
+    ports:
+      - 9090:9090
