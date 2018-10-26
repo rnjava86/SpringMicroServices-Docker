@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { InMemoryDataService } from  './service/in-memory-data.service';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { RegisterComponent } from './register/register.component';
+import { UserService } from './service/user.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { RegisterComponent } from './register/register.component';
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
