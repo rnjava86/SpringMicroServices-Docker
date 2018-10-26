@@ -13,6 +13,7 @@
         <module>zuul-server</module>
         <module>eureka-server</module>
         <module>customer-service</module>
+        <module>product-service</module>
     </modules>
 
 </project>
