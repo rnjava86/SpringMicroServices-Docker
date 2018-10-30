@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.evoke</groupId>
-    <name>Customer Service</name>
+    <name>User Service</name>
     <version>0.0.1-SNAPSHOT</version>
-    <artifactId>customer-service</artifactId>
+    <artifactId>user-service</artifactId>
     <packaging>jar</packaging>
 
     <parent>

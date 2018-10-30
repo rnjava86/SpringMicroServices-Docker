@@ -16,11 +16,11 @@ zuul:
       path: /redirect/**
       url: http://google.com
     customer-by-address:
-      path: /customer-by-address/**
+      path: /user-by-address/**
       url: http://192.168.99.100:9098
     customer-by-service:
-      path: /customer-by-service/**
-      serviceId: CUSTOMER-SERVICE
+      path: /user-by-service/**
+      serviceId: USER-SERVICE
     static:
       path: /static/**
 
