@@ -1,4 +1,4 @@
-package org.evoke.customer;
+package org.evoke.userapplication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
