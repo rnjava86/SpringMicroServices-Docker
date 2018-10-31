@@ -62,7 +62,7 @@ public class ShsProductServiceApplication {
     public DataSource dataSource() {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://192.168.3.39:3306/online_shopping");
+            dataSource.setUrl("jdbc:mysql://localhost:3306/online_shopping");
             dataSource.setUsername("root");
             dataSource.setPassword("123456");
         return dataSource;
