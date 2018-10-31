@@ -33,5 +33,9 @@ public class ProductService {
 		  return productDao.getProductById(id);
 	  }
 	  
+	  public List<Product> getProductsByUserId(int id) {
+		  return productDao.getProductsByUserId(id);
+	  }
+	  
 	
 }

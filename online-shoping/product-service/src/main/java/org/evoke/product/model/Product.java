@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -26,11 +29,13 @@ public class Product implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 	
-	@NotNull
-	private int user_id;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private UserDetails user;
 	
-	@NotNull
-	private int address_id;
+	@ManyToOne
+	@JoinColumn(name="address_id")
+	private Address address;
 	
 	@NotNull
 	private String product_name;
@@ -42,8 +47,6 @@ public class Product implements Serializable{
 	
 	@NotNull
 	private int year_of_purchase;
-	
-	private String performance;
 	
 	private String posted_date;
 	
@@ -59,20 +62,20 @@ public class Product implements Serializable{
 		this.product_id = product_id;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public UserDetails getUser() {
+		return user;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(UserDetails user) {
+		this.user = user;
 	}
 
-	public int getAddress_id() {
-		return address_id;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAddress_id(int address_id) {
-		this.address_id = address_id;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public String getProduct_name() {
@@ -105,14 +108,6 @@ public class Product implements Serializable{
 
 	public void setYear_of_purchase(int year_of_purchase) {
 		this.year_of_purchase = year_of_purchase;
-	}
-
-	public String getPerformance() {
-		return performance;
-	}
-
-	public void setPerformance(String performance) {
-		this.performance = performance;
 	}
 
 	public String getPosted_date() {

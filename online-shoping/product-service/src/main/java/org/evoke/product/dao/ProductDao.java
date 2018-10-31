@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
 import org.evoke.product.model.Product;
+import org.evoke.product.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -56,6 +57,14 @@ public class ProductDao {
 	  public Product getProductById(int id) {
 	         
 		  return ht.get(Product.class,id);
+			  
+		  }
+	  
+
+	  public List<Product> getProductsByUserId(int id) {
+	         
+		  UserDetails ud = ht.get(UserDetails.class,id);
+		 return ud.getProducts();
 			  
 		  }
 	  
