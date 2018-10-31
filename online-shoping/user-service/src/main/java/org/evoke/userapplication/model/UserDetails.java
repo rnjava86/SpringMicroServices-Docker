@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "userdetails")
 public class UserDetails implements Serializable{
 
 	/**
@@ -29,7 +29,7 @@ public class UserDetails implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int id;
@@ -43,10 +43,10 @@ public class UserDetails implements Serializable{
 	private String lastName;
 	
 	
-	@Id
+	
 	@NotBlank(message = "Please enter email address!")	
 	@Email
-	@PrimaryKeyJoinColumn
+	//@PrimaryKeyJoinColumn
 	private String email;
 	
 	@NotBlank(message = "Please enter contact number!")
@@ -66,7 +66,7 @@ public class UserDetails implements Serializable{
 	//@JoinColumn(name = "user_id")
 	//@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@OneToMany(mappedBy = "user")
-	private List<Address> address = new ArrayList<Address>();
+	private List<Address> address;
 	
 	
 	public int getId() {

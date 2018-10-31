@@ -1,20 +1,13 @@
 package org.evoke.userapplication.web.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-/*import org.evoke.userapplication.dao.UserRegistrationDAO;
-import org.evoke.userapplication.dao.UserValidation;*/
-import org.evoke.userapplication.model.Address;
 import org.evoke.userapplication.model.UserDetails;
 import org.evoke.userapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,12 +20,12 @@ public class UserController {
 	/*@Autowired
 	UserValidation uVal;*/
 	
-	@RequestMapping("/check")
+	@GetMapping("/check")
 	public String check() {
 		 return "successful";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST,value = "/register")
+	@PostMapping(value = "/register")
 	public boolean add(@RequestBody UserDetails user ) {
 		/*Address address = new Address();
 		address.setCity("hyd");
