@@ -23,10 +23,6 @@ public interface IUserService {
 
     void createVerificationTokenForUser(UserDetails user, String token);
 
-    //VerificationToken getVerificationToken(String VerificationToken);
-
-    //VerificationToken generateNewVerificationToken(String token);
-
     void createPasswordResetTokenForUser(UserDetails user, String token);
 
     UserDetails findUserByEmail(String email);

@@ -47,7 +47,7 @@ public class UserDetails implements Serializable{
 	
 	@NotBlank(message = "Please enter email address!")	
 	@Email
-	//@PrimaryKeyJoinColumn
+	@Column(unique = true)
 	private String email;
 	
 	@NotBlank(message = "Please enter contact number!")
@@ -60,6 +60,7 @@ public class UserDetails implements Serializable{
 	private String password;
 	
 	//private Role role;
+	@Column(name = "role_name")
 	private String roleName;
 	
 	

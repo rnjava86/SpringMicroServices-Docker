@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	
 	@Autowired
-	UserService uReg;
+	UserService userService;
 	
 	/*@Autowired
 	UserValidation uVal;*/
@@ -33,29 +34,27 @@ public class UserController {
 		List<Address> addList = new ArrayList<Address>();
 		addList.add(address);
 		user.setAddress(addList);*/
-		return uReg.registerNewUserAccount(user);
+		return userService.registerNewUserAccount(user);
 		
 	}
 	
-	@GetMapping(value = "/getUser/{userId}")
+	/*@GetMapping(value = "/getUser/{userId}")
 	public UserDetails add(@PathVariable("userId") String  userId ) {
-		/*Address address = new Address();
+		Address address = new Address();
 		address.setCity("hyd");
 		List<Address> addList = new ArrayList<Address>();
 		addList.add(address);
-		user.setAddress(addList);*/
-		return uReg.getUser(userId);
-		
-	}
-	
-	/*@PostMapping(value = "/login")
-	public boolean loginUser(@RequestParam String email,@RequestParam String password) {
-		
-		boolean res =  uVal.validateUser(email, password);
-		
-		return res;
+		user.setAddress(addList);
+		return userService.getUser(userId);
 		
 	}*/
+	
+	@PostMapping(value = "/login")
+	public UserDetails loginUser(@RequestBody UserDetails user) {
+		//System.out.println(user.getEmail()+": "+user.getPassword());
+		return userService.userLogin(user);
+		
+	}
 	
 
 }
