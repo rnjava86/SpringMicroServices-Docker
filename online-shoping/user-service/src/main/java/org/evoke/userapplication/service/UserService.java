@@ -5,15 +5,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.evoke.userapplication.hibernateconfig.HibernateConfig;
 //import org.evoke.userapplication.model.Address;
 import org.evoke.userapplication.model.UserDetails;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 //import org.evoke.userapplication.model.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,15 +47,16 @@ public class UserService implements IUserService {
 		newuser.setEmail(user.getEmail());
 		newuser.setContactNumber(user.getContactNumber());
 		
-		newuser.setAddress(user.getAddress());	
-		
+		newuser.setAddressLst(user.getAddressLst());	
+		newuser.setRoleName("CUSTOMER");
 		/*try {
 		    session = hibernateTemplate.getSession();
 		} catch (HibernateException e) {
 		    session = hibernateTemplate.getSessionFactory().openSession();
 		}*/
 		
-		hibernateTemplate.save(newuser);
+		hibernateTemplate.saveOrUpdate(newuser);
+		hibernateTemplate.flush();
 		
 		return true;
 		
@@ -77,7 +74,10 @@ public class UserService implements IUserService {
 	@Override
 	public UserDetails getUser(String verificationToken) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		
+		
+		return hibernateTemplate.get(UserDetails.class, new Integer(verificationToken));
 	}
 
 	@Override
@@ -164,4 +164,7 @@ public class UserService implements IUserService {
 		return null;
 	}
 	
+	
 }
+
+

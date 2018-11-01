@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -59,18 +60,33 @@ public class UserDetails implements Serializable{
 	private String password;
 	
 	//private Role role;
-	
+	private String roleName;
 	
 	
 	
 	//@JoinColumn(name = "user_id")
 	//@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@OneToMany(mappedBy = "user")
-	private List<Address> address;
+	/*@OneToMany(mappedBy = "user")*/
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ADDRESS", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") })
+	private List<Address> addressLst;
+	
+	
+	/*@OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+	private List<Role> roleLst;*/
+	
+	
 	
 	
 	public int getId() {
 		return id;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -110,19 +126,23 @@ public class UserDetails implements Serializable{
 	
 	
 	
-	public List<Address> getAddress() {
-		return address;
-	}
-	public void setAddress(List<Address> address) {
-		this.address = address;
-	}
-	
-	
 	/*public void addAddressToUser(Address addr) {
 		this.address.add(addr);
 		addr.setUser(this);
 	}*/
 	
+	public List<Address> getAddressLst() {
+		return addressLst;
+	}
+	public void setAddressLst(List<Address> addressLst) {
+		this.addressLst = addressLst;
+	}
+/*	public List<Role> getRoleLst() {
+		return roleLst;
+	}
+	public void setRoleLst(List<Role> roleLst) {
+		this.roleLst = roleLst;
+	}*/
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email

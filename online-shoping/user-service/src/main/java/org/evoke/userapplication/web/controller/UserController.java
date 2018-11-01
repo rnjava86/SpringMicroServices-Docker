@@ -5,6 +5,7 @@ import org.evoke.userapplication.model.UserDetails;
 import org.evoke.userapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,16 @@ public class UserController {
 		
 	}
 	
+	@GetMapping(value = "/getUser/{userId}")
+	public UserDetails add(@PathVariable("userId") String  userId ) {
+		/*Address address = new Address();
+		address.setCity("hyd");
+		List<Address> addList = new ArrayList<Address>();
+		addList.add(address);
+		user.setAddress(addList);*/
+		return uReg.getUser(userId);
+		
+	}
 	
 	/*@PostMapping(value = "/login")
 	public boolean loginUser(@RequestParam String email,@RequestParam String password) {

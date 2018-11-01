@@ -38,12 +38,7 @@ public class Address implements Serializable {
 	
 	@Column
 	private int pincode;
-	
-	
-	 //@JoinColumn(name = "user_id")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private UserDetails user;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -74,15 +69,5 @@ public class Address implements Serializable {
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
-	public UserDetails getUser() {
-		return user;
-	}
-	public void setUser(UserDetails user) {
-		this.user = user;
-	}
 	
-	
-	
-	
-
 }

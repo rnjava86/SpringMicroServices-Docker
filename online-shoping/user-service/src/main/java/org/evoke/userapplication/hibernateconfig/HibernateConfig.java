@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 //@EnableJpaRepositories(basePackages ="org.evoke.userapplication")
-@PropertySource("classpath:hibernate-properties.yml")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 public class HibernateConfig {
 
