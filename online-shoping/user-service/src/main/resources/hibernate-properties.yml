@@ -1,0 +1,6 @@
+datasource.driver-class-name=com.mysql.jdbc.Driver
+datasource.url=jdbc:mysql://localhost:3307/onlineshopping?autoReconnect=true&useSSL=false
+datasource.username=root
+datasource.password=Password@123
+
+

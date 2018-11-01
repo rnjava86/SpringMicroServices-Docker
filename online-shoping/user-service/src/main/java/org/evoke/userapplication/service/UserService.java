@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.evoke.userapplication.hibernateconfig.HibernateConfig;
 //import org.evoke.userapplication.model.Address;
 import org.evoke.userapplication.model.UserDetails;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 //import org.evoke.userapplication.model.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +27,11 @@ public class UserService implements IUserService {
 	@Autowired
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
+	/*@Autowired
+	private HibernateConfig hibernateTemplate;*/
+	
 	@Autowired
-	private HibernateTemplate hibernateTemplate;
+	Session hibernateTemplate;
 			
 	
 	@Override
@@ -45,7 +51,13 @@ public class UserService implements IUserService {
 		newuser.setEmail(user.getEmail());
 		newuser.setContactNumber(user.getContactNumber());
 		
-		newuser.setAddress(user.getAddress());		
+		newuser.setAddress(user.getAddress());	
+		
+		/*try {
+		    session = hibernateTemplate.getSession();
+		} catch (HibernateException e) {
+		    session = hibernateTemplate.getSessionFactory().openSession();
+		}*/
 		
 		hibernateTemplate.save(newuser);
 		
