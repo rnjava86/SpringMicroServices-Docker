@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "userdetails")
-public class UserDetails implements Serializable{
+public class UserDetails extends AbstractTimestampEntity implements Serializable{
 
 	/**
 	 * 

@@ -18,8 +18,10 @@
 package org.evoke.user.web.controller;
 
 import org.apache.commons.lang.StringUtils;
+import org.evoke.user.model.BaseRequest;
 import org.evoke.user.model.BaseResponse;
 import org.evoke.user.model.LoginRequest;
+import org.evoke.user.model.UserDetails;
 import org.evoke.user.service.UserServiceImpl;
 import org.evoke.user.web.error.ErrorCode;
 import org.evoke.user.web.error.ErrorDescription;
@@ -94,6 +96,7 @@ public class UserController {
 	@PostMapping(value = "/login")
 	public BaseResponse loginUser(@RequestBody LoginRequest request) {
 
+		
 		BaseResponse response = null;
 		if (null != request && null != request.getUserDetails()) {
 

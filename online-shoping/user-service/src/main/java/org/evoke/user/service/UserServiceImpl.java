@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.evoke.user.model.Address;
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -64,13 +66,23 @@ public class UserServiceImpl implements UserService {
 			newuser.setContactNumber(user.getContactNumber());
 			newuser.setAddressLst(user.getAddressLst());
 			newuser.setRoleName("CUSTOMER");
+			newuser.setCreatedUser(user.getFirstName());
+			newuser.setUpdatedUser(user.getFirstName());
+			newuser.onCreate();
+			if(null != newuser.getAddressLst() &&  newuser.getAddressLst().size()>0) {
+				Address address = newuser.getAddressLst().get(0);
+				address.onCreate();
+				address.setCreatedUser(user.getFirstName());
+				address.setUpdatedUser(user.getFirstName());
+				
+			}
 			hibernateTemplate.saveOrUpdate(newuser);
 			response = new BaseResponse();
 			mapObject = new HashMap<String, Object>();
-			newuser.setPassword(null);
+			//newuser.setPassword(null);
 			mapObject.put("userDetails", newuser);
 			response.setResponse(mapObject);
-			hibernateTemplate.flush();
+		//	hibernateTemplate.flush();
 
 		} catch (Exception ex) {
 			System.out.println("Exception in UserServiceImpl.registerUser() " + ex.getMessage());
@@ -90,9 +102,10 @@ public class UserServiceImpl implements UserService {
 			if (checkIfValidPassword(user)) {
 				response = new BaseResponse();
 				mapObject = new HashMap<String, Object>();
-				if (null != repository.getUser(user.getEmail())) {
-					user = repository.getUser(user.getEmail());
-					user.setPassword(null);
+				user = repository.getUser(user.getEmail());
+				if (null != user) {
+					
+					//user.setPassword(null);
 					mapObject.put("userDetails", user);
 					response.setResponse(mapObject);
 				} else {
@@ -148,7 +161,7 @@ public class UserServiceImpl implements UserService {
 
 			if (null != userDetails) {
 				mapObject = new HashMap<String, Object>();
-				userDetails.setPassword(null);
+				//userDetails.setPassword(null);
 				mapObject.put("userDetails", userDetails);
 				response = new BaseResponse();
 				response.setResponse(mapObject);

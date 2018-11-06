@@ -6,6 +6,10 @@ import java.util.Map;
 public class BaseRequest implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String source;
 	private String appVersion;
 	private String deviceId;
