@@ -1,21 +1,21 @@
-package org.evoke.userapplication.service;
+package org.evoke.user.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.evoke.userapplication.model.UserDetails;
-//import org.evoke.userapplication.model.VerificationToken;
-import org.evoke.userapplication.web.error.UserAlreadyExistException;
+import org.evoke.user.model.BaseResponse;
+import org.evoke.user.model.UserDetails;
+import org.evoke.user.web.error.UserAlreadyExistException;
 
 
 @Transactional
-public interface IUserService {
+public interface UserService {
 	
-	boolean registerNewUserAccount(UserDetails accountDto) throws UserAlreadyExistException;
+	BaseResponse registerUser(UserDetails accountDto) throws UserAlreadyExistException;
 
-	UserDetails getUser(String verificationToken);
+	BaseResponse getUser(int userId);
 
     void saveRegisteredUser(UserDetails user);
 

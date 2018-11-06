@@ -1,4 +1,4 @@
-package org.evoke.userapplication.model;
+package org.evoke.user.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.evoke.user.web.error.ErrorMessage;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -76,10 +77,7 @@ public class UserDetails implements Serializable{
 	/*@OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
 	private List<Role> roleLst;*/
-	
-	
-	
-	
+
 	public int getId() {
 		return id;
 	}
@@ -150,6 +148,7 @@ public class UserDetails implements Serializable{
 				+ ", contactNumber=" + contactNumber + "password=" + password 
 				+ "]";
 	}
+		
 	
 	
 	/*@OneToOne(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

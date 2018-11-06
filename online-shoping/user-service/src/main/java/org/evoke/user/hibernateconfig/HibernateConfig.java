@@ -1,4 +1,4 @@
-package org.evoke.userapplication.hibernateconfig;
+package org.evoke.user.hibernateconfig;
 
 import java.util.Properties;
 
@@ -34,7 +34,7 @@ public class HibernateConfig {
     @Autowired
     private Environment env;
     
-  //1.2.3.4
+  //1.2.3.4	
   /*	@Value("${mongodb.url}")
   	private String mongodbUrl;
 
@@ -47,7 +47,7 @@ public class HibernateConfig {
     @Bean
     public SessionFactory getSessionFactory(){
         LocalSessionFactoryBuilder sessionFactory = new LocalSessionFactoryBuilder(dataSource());
-        sessionFactory.scanPackages("org.evoke.userapplication.model").addProperties(hibernateProperties());
+        sessionFactory.scanPackages("org.evoke.user.model").addProperties(hibernateProperties());
        
         return sessionFactory.buildSessionFactory();
     }

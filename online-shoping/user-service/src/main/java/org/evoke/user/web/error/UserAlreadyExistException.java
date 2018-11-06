@@ -1,4 +1,4 @@
-package org.evoke.userapplication.web.error;
+package org.evoke.user.web.error;
 
 public class UserAlreadyExistException extends RuntimeException{
 	

@@ -1,6 +1,6 @@
-package org.evoke.userapplication.persistence.dao;
+package org.evoke.user.persistence.dao;
 
-import org.evoke.userapplication.model.UserDetails;
+import org.evoke.user.model.UserDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

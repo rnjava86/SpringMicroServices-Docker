@@ -1,35 +1,26 @@
-package org.evoke.userapplication;
+package org.evoke.user;
 
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.hibernate.SessionFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 //import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 //import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @EnableEurekaClient
 @SpringBootApplication
 @Configuration
 @EnableTransactionManagement
 @EnableDiscoveryClient
-@EntityScan(basePackages="org.evoke.userapplication")
 //@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class,DataSourceTransactionManagerAutoConfiguration.class,HibernateJpaAutoConfiguration.class })
 public class OnlineShoppingUserServiceApplication {
 
@@ -37,6 +28,22 @@ public class OnlineShoppingUserServiceApplication {
 		SpringApplication.run(OnlineShoppingUserServiceApplication.class, args);
 	}
 	
+	@Bean
+	public RequestMappingHandlerAdapter  annotationMethodHandlerAdapter()
+	{
+	    final RequestMappingHandlerAdapter annotationMethodHandlerAdapter = new RequestMappingHandlerAdapter();
+	    final MappingJackson2HttpMessageConverter mappingJacksonHttpMessageConverter = new MappingJackson2HttpMessageConverter();
+
+	    List<HttpMessageConverter<?>> httpMessageConverter = new ArrayList<HttpMessageConverter<?>>();
+	    httpMessageConverter.add(mappingJacksonHttpMessageConverter);
+
+	    String[] supportedHttpMethods = { "POST", "GET", "HEAD" };
+
+	    annotationMethodHandlerAdapter.setMessageConverters(httpMessageConverter);
+	    annotationMethodHandlerAdapter.setSupportedMethods(supportedHttpMethods);
+
+	    return annotationMethodHandlerAdapter;
+	}
 }
 	
 	

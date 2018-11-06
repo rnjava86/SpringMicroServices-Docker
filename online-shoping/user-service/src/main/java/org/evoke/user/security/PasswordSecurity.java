@@ -1,4 +1,4 @@
-package org.evoke.userapplication.security;
+package org.evoke.user.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

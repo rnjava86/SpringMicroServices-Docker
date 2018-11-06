@@ -1,4 +1,4 @@
-package org.evoke.userapplication;
+package org.evoke.user;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +17,6 @@ public class SwaggerConfig {
 	        return new Docket(DocumentationType.SWAGGER_2)
 	                .select().apis(RequestHandlerSelectors.any())//basePackage("guru.springframework.controllers")
 	                .paths(PathSelectors.any())//regex("/product.*")
-	                .build();
+	                .build();	
 	    }
 }

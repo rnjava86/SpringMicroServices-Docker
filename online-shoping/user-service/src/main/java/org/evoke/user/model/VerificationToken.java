@@ -1,3 +1,4 @@
+package org.evoke.user.model;
 /*package org.evoke.userapplication.model;
 
 import java.util.Calendar;
