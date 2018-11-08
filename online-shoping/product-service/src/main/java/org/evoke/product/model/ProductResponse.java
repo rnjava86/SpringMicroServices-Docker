@@ -1,36 +1,24 @@
 package org.evoke.product.model;
 
-import java.io.Serializable;
+import org.evoke.dto.UserDto;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
-@Table(name = "product")
-public class Product implements Serializable{
+public class ProductResponse {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 	
-	@NotNull
+	private UserDetails user;
+	
+	private Address address;
+	
+	private Category category;
+	
 	private String product_name;
 	
-	private String img_path;
+	//private MultipartFile img;
 	
-	@NotNull
 	private double price ;
 	
-	@NotNull
+	
 	private int year_of_purchase;
 	
 	private String posted_date;
@@ -38,8 +26,6 @@ public class Product implements Serializable{
 	private String description;
 	
 	private String condition_product;
-	
-	
 
 	public int getProduct_id() {
 		return product_id;
@@ -49,6 +35,9 @@ public class Product implements Serializable{
 		this.product_id = product_id;
 	}
 
+	
+
+
 	public String getProduct_name() {
 		return product_name;
 	}
@@ -57,13 +46,6 @@ public class Product implements Serializable{
 		this.product_name = product_name;
 	}
 
-	public String getImg_path() {
-		return img_path;
-	}
-
-	public void setImg_path(String img_path) {
-		this.img_path = img_path;
-	}
 
 	public double getPrice() {
 		return price;
@@ -105,5 +87,49 @@ public class Product implements Serializable{
 		this.condition_product = condition_product;
 	}
 
+
+	/**
+	 * @return the user
+	 */
+	public UserDetails getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(UserDetails user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	/**
+	 * @return the category
+	 */
+	public Category getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	
 
 }

@@ -1,6 +1,7 @@
 package org.evoke.product.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -19,7 +22,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "userdetails")
 public class UserDetails implements Serializable{
 
 	/**
@@ -40,8 +43,11 @@ public class UserDetails implements Serializable{
 	@Column(name = "last_name")
 	private String lastName;
 	
+	
+	
 	@NotBlank(message = "Please enter email address!")	
 	@Email
+	@Column(unique = true)
 	private String email;
 	
 	@NotBlank(message = "Please enter contact number!")
@@ -50,20 +56,30 @@ public class UserDetails implements Serializable{
 	//@Pattern(regexp="(^$|[0-9]{10})") 
 	private String contactNumber;
 	
-	@NotBlank(message = "Please enter contact number!")
+	@NotBlank(message = "Please enter password!")
 	private String password;
 	
-	@JoinColumn(name = "user_id")
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	private List<Address> address;
+	//private Role role;
+	@Column(name = "role_name")
+	private String roleName;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private List<Product> products;
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ADDRESS", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") })
+	private List<Address> addressLst;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_PRODUCT", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "PRODUCT_ID") })
+	private List<Product> ProductLst;
 	
 	
 	public int getId() {
 		return id;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -100,28 +116,19 @@ public class UserDetails implements Serializable{
 		this.password = password;
 	}
 	
-	
-	
-	
-	public List<Address> getAddress() {
-		return address;
+/*	public List<Address> getAddressLst() {
+		return addressLst;
 	}
-	public void setAddress(List<Address> address) {
-		this.address = address;
+	public void setAddressLst(List<Address> addressLst) {
+		this.addressLst = addressLst;
 	}
-	
-	
-	/*public void addAddressToUser(Address addr) {
-		this.address.add(addr);
-		addr.setUser(this);
+
+	public List<Product> getProductLst() {
+		return ProductLst;
+	}
+	public void setProductLst(List<Product> productLst) {
+		ProductLst = productLst;
 	}*/
-	
-	public List<Product> getProducts() {
-		return products;
-	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
@@ -129,14 +136,5 @@ public class UserDetails implements Serializable{
 				+ "]";
 	}
 	
-	
-	/*@OneToOne(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Cart cart;
-	public Cart getCart() {
-		return cart;
-	}
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}*/
 	
 }
