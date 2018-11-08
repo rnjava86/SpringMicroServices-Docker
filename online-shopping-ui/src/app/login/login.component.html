@@ -1,0 +1,17 @@
+<h1>Login Form</h1>
+<form class="form" [formGroup]="loginForm" method="post" (ngSubmit)="userLogin()">
+UserName  <input type="text" formControlName="username" > <br>
+Password  <input type="password" formControlName="password" > <br>
+<input type="submit" name="" value="Login">
+</form>
+
+<hr>
+<h1>Registration Form</h1>
+<form class="form" [formGroup]="registerForm" method="post" (ngSubmit)="userRegistration()">
+  First Name  <input type="text" formControlName="firstname" > <br>
+  Last Name  <input type="text" formControlName="lastname" > <br>
+  Contact Number  <input type="text" formControlName="contact" > <br>
+  Email  <input type="text" formControlName="email" > <br>
+  Password  <input type="password" formControlName="password" > <br>
+<input type="submit" name="" value="Register">
+</form>
