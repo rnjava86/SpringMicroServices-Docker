@@ -1,13 +1,17 @@
 package org.evoke.user.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import org.springframework.security.core.GrantedAuthority;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author mdenning
@@ -16,9 +20,14 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(Include.NON_NULL)
 @Entity
 @Table(name = "role")
-public class Role implements GrantedAuthority {
+public class Role extends AbstractTimestampEntity implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private Long id;
 
@@ -32,12 +41,7 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    @JsonIgnore
-    @Override
-    public String getAuthority() {
-        return "ROLE_" + role.getName();
-    }
-
+   
 	public Long getId() {
 		return id;
 	}

@@ -3,8 +3,6 @@ package org.evoke.user.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import org.evoke.util.DateUtil;
-
 @MappedSuperclass
 public abstract class AbstractTimestampEntity {
 
@@ -15,23 +13,20 @@ public abstract class AbstractTimestampEntity {
    
     @Column(name = "update_date", nullable = false)
     private String updatedDate;
-
-    
-    public void onCreate() {
-    	updatedDate = createdDate = DateUtil.getDDMMYYDate();
-    	
-    }
-
-    
-    public void onUpdate() {
-    	updatedDate = DateUtil.getDDMMYYDate();
-    }
     
     @Column(name = "created_user", nullable = false)
     private String createdUser;
     
     @Column(name = "updated_user", nullable = false)
     private String updatedUser;
+    
+    public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public void setUpdatedDate(String updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 
 	public String getCreatedUser() {
 		return createdUser;

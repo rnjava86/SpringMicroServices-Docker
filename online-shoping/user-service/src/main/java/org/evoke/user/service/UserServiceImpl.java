@@ -17,6 +17,7 @@ import org.evoke.user.persistence.dao.UserRepository;
 import org.evoke.user.web.error.ErrorCode;
 import org.evoke.user.web.error.ErrorDescription;
 import org.evoke.user.web.error.ErrorType;
+import org.evoke.util.DateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,10 @@ public class UserServiceImpl implements UserService {
 			final User newuser = new User();
 			List<Role> roleLst = new ArrayList<Role>();
 			Role role = new Role(RoleEnum.CUSTOMER);
+			role.setCreatedUser(user.getFirstName());
+			role.setUpdatedUser(user.getFirstName());
+			role.setCreatedDate(DateUtil.getDDMMYYDate());
+			role.setUpdatedDate(DateUtil.getDDMMYYDate());
 			roleLst.add(role);
 			newuser.setFirstName(user.getFirstName());
 			newuser.setLastName(user.getLastName());
@@ -74,13 +79,15 @@ public class UserServiceImpl implements UserService {
 			newuser.setRoleLst(roleLst);
 			newuser.setCreatedUser(user.getFirstName());
 			newuser.setUpdatedUser(user.getFirstName());
-			newuser.onCreate();
+			newuser.setCreatedDate(DateUtil.getDDMMYYDate());
+			newuser.setUpdatedDate(DateUtil.getDDMMYYDate());
 			if (null != newuser.getAddressLst() && newuser.getAddressLst().size() > 0) {
-				Address address = newuser.getAddressLst().get(0);
-				address.onCreate();
-				address.setCreatedUser(user.getFirstName());
-				address.setUpdatedUser(user.getFirstName());
-
+				newuser.getAddressLst().get(0);
+				newuser.getAddressLst().get(0).setCreatedDate(DateUtil.getDDMMYYDate());
+				newuser.getAddressLst().get(0).setUpdatedDate(DateUtil.getDDMMYYDate());
+				newuser.getAddressLst().get(0).setCreatedUser(user.getFirstName());
+				newuser.getAddressLst().get(0).setUpdatedUser(user.getFirstName());
+				
 			}
 			session.saveOrUpdate(newuser);
 			session.flush();
