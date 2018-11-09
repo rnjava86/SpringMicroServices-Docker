@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 //import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,8 +24,7 @@ public class Address implements Serializable {
 
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "address_id")
+	@GeneratedValue
 	private int id;
 	
 	@Column
@@ -40,11 +38,7 @@ public class Address implements Serializable {
 	
 	@Column
 	private int pincode;
-	
-	 @ManyToOne(cascade = CascadeType.ALL)
-	 @JoinColumn(name = "user_id")
-	private UserDetails user;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -75,15 +69,5 @@ public class Address implements Serializable {
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
-	public UserDetails getUser() {
-		return user;
-	}
-	public void setUser(UserDetails user) {
-		this.user = user;
-	}
 	
-	
-	
-	
-
 }

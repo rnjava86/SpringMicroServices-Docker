@@ -1,0 +1,35 @@
+
+<div class="card" >
+
+  <div class="card-header ">
+    <span>Features</span>
+    <div class="text-right">
+        <a href="#"><i class="fa fa-heart"></i> <span class="badge badge-light "> {{wishlistProductList.length}}</span></a>
+        <span>&nbsp; &nbsp;</span>
+        <a href="#"><i class="fa fa-shopping-cart"></i> <span class="badge badge-light"> {{ cartProductList.length}}</span></a>
+    </div>
+  </div>
+      <div class="card-body" *ngFor="let product of products">
+        <img src="{{product.imageUrl}}" alt="" (click)="viewProduct(this.product)">
+        <h5 class="card-title">{{product.name}} </h5>
+        <p class="card-text">Rs {{product.price}}</p>
+
+        <span  class="btn btn-primary" (click)="wishlistProduct(this.product)">Whishlist</span>
+        <span class="btn btn-warning right" (click)="cartProduct(this.product)">Add to Cart</span>
+      </div>
+
+</div>
+
+ <!-- toogle product  -->
+ <div class="" *ngIf="showProduct">
+   <img src="assets/images/glass.jpg" alt="">
+
+   <!-- <div class="card-body" [showProductDescription]="product">
+     <img src="{{product.imageUrl}}" alt="" (click)="viewProduct(this.product)">
+     <h5 class="card-title">{{product.name}} </h5>
+     <p class="card-text">Rs {{product.price}}</p>
+
+     <span  class="btn btn-primary" (click)="wishlistProduct(this.product)">Whishlist</span>
+     <span class="btn btn-warning right" (click)="cartProduct(this.product)">Add to Cart</span>
+   </div> -->
+ </div>

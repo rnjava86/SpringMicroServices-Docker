@@ -1,36 +1,39 @@
 package org.evoke.product.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.multipart.MultipartFile;
+import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
-@Table(name = "product")
-public class Product implements Serializable{
+
+public class ProductRequest implements Serializable{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 	
-	@NotNull
+	private int user_id;
+	
+	private int category_id;
+	
 	private String product_name;
 	
-	private String img_path;
+	//private MultipartFile img;
 	
-	@NotNull
 	private double price ;
 	
-	@NotNull
+	
 	private int year_of_purchase;
 	
 	private String posted_date;
@@ -38,8 +41,6 @@ public class Product implements Serializable{
 	private String description;
 	
 	private String condition_product;
-	
-	
 
 	public int getProduct_id() {
 		return product_id;
@@ -49,6 +50,15 @@ public class Product implements Serializable{
 		this.product_id = product_id;
 	}
 
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+
 	public String getProduct_name() {
 		return product_name;
 	}
@@ -57,13 +67,6 @@ public class Product implements Serializable{
 		this.product_name = product_name;
 	}
 
-	public String getImg_path() {
-		return img_path;
-	}
-
-	public void setImg_path(String img_path) {
-		this.img_path = img_path;
-	}
 
 	public double getPrice() {
 		return price;
@@ -105,5 +108,14 @@ public class Product implements Serializable{
 		this.condition_product = condition_product;
 	}
 
+	
+	public int getCategory_id() {
+		return category_id;
+	}
+
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
+	}
+	
 
 }
