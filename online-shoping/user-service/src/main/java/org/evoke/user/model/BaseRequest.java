@@ -15,8 +15,6 @@ public class BaseRequest implements Serializable{
 	private String deviceId;
 	private String appOS;
 	
-	private Map<String,Object> request;
-	
 	
 	public String getSource() {
 		return source;
@@ -50,13 +48,5 @@ public class BaseRequest implements Serializable{
 		this.appOS = appOS;
 	}
 
-	public Map<String, Object> getRequest() {
-		return request;
-	}
-
-	public void setRequest(Map<String, Object> request) {
-		this.request = request;
-	}
-	
 	
 }

@@ -7,7 +7,7 @@ public interface ErrorDescription {
 	String USER_NOT_FOUND = "User not found";
 	String PASSWORD_NOT_VALID = "Entered passowrd is not valid..try again!!";
 	String VALID_NUMBER_REQUIRED = "Please enter a valid number";
-	String USER_DETAILS_OBJECT_NOT_FOUND = "UserDetails Object not found"; 
+	String USER_DETAILS_OBJECT_NOT_FOUND = "User Object not found"; 
 	String USER_EMAIL_NOT_PROVIDED = "Please provide valid email";
 
 }

@@ -4,20 +4,19 @@ import java.util.List;
 
 public class UserResponse extends BaseResponse {
 
-	private List<UserDetails> userDetailsLst;
-
-	public List<UserDetails> getUserDetailsLst() {
-		return userDetailsLst;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public List<User> getUserLst() {
+		return userLst;
 	}
-
-	public void setUserDetailsLst(List<UserDetails> userDetailsLst) {
-		this.userDetailsLst = userDetailsLst;
+	public void setUserLst(List<User> userLst) {
+		this.userLst = userLst;
 	}
+	private List<User> userLst;
 
-	@Override
-	public String toString() {
-		return "UserResponse [userDetailsLst=" + userDetailsLst + "]";
-	}
+	
 
 	
 		

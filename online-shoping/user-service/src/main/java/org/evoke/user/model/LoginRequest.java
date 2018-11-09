@@ -7,15 +7,17 @@ public class LoginRequest extends BaseRequest{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private UserDetails userDetails;
+	private User user;
 
 
-	public UserDetails getUserDetails() {
-		return userDetails;
+	
+	public User getUser() {
+		return user;
 	}
-	public void setUserDetails(UserDetails userDetails) {
-		this.userDetails = userDetails;
+	public void setUser(User user) {
+		this.user = user;
 	}
+	
 	
 	
 	

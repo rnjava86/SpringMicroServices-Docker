@@ -18,10 +18,8 @@
 package org.evoke.user.web.controller;
 
 import org.apache.commons.lang.StringUtils;
-import org.evoke.user.model.BaseRequest;
 import org.evoke.user.model.BaseResponse;
 import org.evoke.user.model.LoginRequest;
-import org.evoke.user.model.UserDetails;
 import org.evoke.user.service.UserServiceImpl;
 import org.evoke.user.web.error.ErrorCode;
 import org.evoke.user.web.error.ErrorDescription;
@@ -32,6 +30,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**********************************************************************************
  * Name : UserController.java Desc : This is class is used for User actions
@@ -44,11 +44,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	UserServiceImpl userService;
 
 	@GetMapping("/check")
 	public String check() {
+		 logger.info("this is a info message");
+	      logger.warn("this is a warn message");
+	      logger.error("this is a error message");
 		return "successful";
 	}
 
@@ -56,9 +60,9 @@ public class UserController {
 	public BaseResponse add(@RequestBody LoginRequest request) {
 
 		BaseResponse response = null;
-		if (null != request && null != request.getUserDetails()) {
+		if (null != request && null != request.getUser()) {
 
-			response = userService.registerUser(request.getUserDetails());
+			response = userService.registerUser(request.getUser());
 
 		} else {
 
@@ -77,9 +81,9 @@ public class UserController {
 	public BaseResponse getUser(@RequestBody LoginRequest request) {
 
 		BaseResponse response = null;
-		if (null != request && null != request.getUserDetails()) {
+		if (null != request && null != request.getUser()) {
 
-			response = userService.getUser(request.getUserDetails().getId());
+			response = userService.getUser(request.getUser().getId());
 		} else {
 
 			response = new BaseResponse();
@@ -98,12 +102,12 @@ public class UserController {
 
 		
 		BaseResponse response = null;
-		if (null != request && null != request.getUserDetails()) {
+		if (null != request && null != request.getUser()) {
 
-			response = userService.userLogin(request.getUserDetails());
+			response = userService.userLogin(request.getUser());
 
-		} else if (null != request.getUserDetails().getEmail()
-				&& StringUtils.isNotEmpty(request.getUserDetails().getEmail())) {
+		} else if (null != request.getUser().getEmail()
+				&& StringUtils.isNotEmpty(request.getUser().getEmail())) {
 
 			response = new BaseResponse();
 			response.setErrorCode(ErrorCode.EMAIL_NOT_VALID);

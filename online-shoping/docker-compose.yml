@@ -6,8 +6,8 @@ services:
     ports:
       - 8761:8761
 
-  customer:
-    build: ./customer-service
+  user-service:
+    build: ./user-service
     ports:
       - 9098:9098
 

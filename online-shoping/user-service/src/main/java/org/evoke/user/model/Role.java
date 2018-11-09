@@ -1,105 +1,58 @@
 package org.evoke.user.model;
-/*package org.evoke.userapplication.model;
 
-import java.util.Collection;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+/**
+ * @author mdenning
+ */
+
+@JsonInclude(Include.NON_NULL)
 @Entity
-public class Role {
+@Table(name = "role")
+public class Role implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
-    @ManyToMany(mappedBy = "roles")
-    private Collection<UserDetails> users;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
 
-    @ManyToMany
-    @JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
+    public Role() {}
 
-    private String name;
-
-    public Role() {
-        super();
+    public Role(RoleEnum role) {
+        this.role = role;
     }
 
-    public Role(final String name) {
-        super();
-        this.name = name;
-    }
-
-    //
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public Collection<UserDetails> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final Collection<UserDetails> users) {
-        this.users = users;
-    }
-
-    public Collection<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(final Collection<Privilege> privileges) {
-        this.privileges = privileges;
-    }
-
+    @JsonIgnore
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+    public String getAuthority() {
+        return "ROLE_" + role.getName();
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Role role = (Role) obj;
-        if (!role.equals(role.name)) {
-            return false;
-        }
-        return true;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Role [name=").append(name).append("]").append("[id=").append(id).append("]");
-        return builder.toString();
-    }
-}*/
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public RoleEnum getRole() {
+		return role;
+	}
+
+	public void setRole(RoleEnum role) {
+		this.role = role;
+	}
+    
+    
+}
