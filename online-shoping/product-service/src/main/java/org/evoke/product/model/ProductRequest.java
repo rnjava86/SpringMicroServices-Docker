@@ -1,5 +1,6 @@
 package org.evoke.product.model;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -29,7 +30,7 @@ public class ProductRequest implements Serializable{
 	
 	private String product_name;
 	
-	//private MultipartFile img;
+	private ByteArrayInputStream img;
 	
 	private double price ;
 	

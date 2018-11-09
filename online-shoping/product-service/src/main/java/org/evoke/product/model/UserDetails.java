@@ -18,6 +18,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -65,6 +67,7 @@ public class UserDetails implements Serializable{
 	
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ADDRESS", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") })
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<Address> addressLst;
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -116,7 +119,7 @@ public class UserDetails implements Serializable{
 		this.password = password;
 	}
 	
-/*	public List<Address> getAddressLst() {
+	public List<Address> getAddressLst() {
 		return addressLst;
 	}
 	public void setAddressLst(List<Address> addressLst) {
@@ -128,7 +131,8 @@ public class UserDetails implements Serializable{
 	}
 	public void setProductLst(List<Product> productLst) {
 		ProductLst = productLst;
-	}*/
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email

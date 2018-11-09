@@ -2,15 +2,11 @@ package org.evoke.product.util;
 
 import java.util.List;
 
-import org.evoke.dto.UserDto;
-import org.evoke.product.model.Address;
-import org.evoke.product.model.Category;
 import org.evoke.product.model.Product;
 import org.evoke.product.model.ProductResponse;
 import org.evoke.product.model.UserDetails;
 import org.evoke.product.model.User_address;
 import org.evoke.product.model.User_product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +21,6 @@ public class ProductMapper {
 		List<UserDetails> user = null;
 		List<User_product>  up = null;
 		List<User_address> ua = null;
-		UserDto udto =null;
 		
 		for (Product product : products) {
 			 
@@ -62,16 +57,6 @@ public class ProductMapper {
 		
 	}
 	
-	public UserDto userDtoMap(UserDetails ud) {
-		
-		UserDto udto= new UserDto();
-		
-		udto.setId(ud.getId());
-		udto.setFirstName(ud.getFirstName());
-		udto.setLastName(ud.getLastName());
-		//udto.setAddressLst(ud.getAddressLst());
-		
-		return udto;
-	}
+
 
 }

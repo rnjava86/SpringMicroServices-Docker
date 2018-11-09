@@ -1,7 +1,5 @@
 package org.evoke.product.model;
 
-import org.evoke.dto.UserDto;
-
 public class ProductResponse {
 	
 	private int product_id;
