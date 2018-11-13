@@ -1,29 +1,38 @@
-package org.evoke.product.model;
+package org.evoke.user.model;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class ProductResponse extends BaseResponse {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "product")
+public class Product extends AbstractTimestampEntity implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 	
-	private User user;
-	
-	private Address address;
-	
-	private Category category;
-	
+	@NotNull
 	private String product_name;
 	
-	//private MultipartFile img;
+	private String img_path;
 	
+	@NotNull
 	private double price ;
 	
-	
+	@NotNull
 	private int year_of_purchase;
 	
 	private String posted_date;
@@ -31,18 +40,15 @@ public class ProductResponse extends BaseResponse {
 	private String description;
 	
 	private String condition_product;
-
-	private List<Product> productLst;
 	
-		
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@ManyToOne 
+	@JoinColumn(name="category_id")
+	private Category category; 
 
-	public List<Product> getProductLst() {
-		return productLst;
-	}
-
-	public void setProductLst(List<Product> productLst) {
-		this.productLst = productLst;
-	}
 
 	public int getProduct_id() {
 		return product_id;
@@ -52,9 +58,6 @@ public class ProductResponse extends BaseResponse {
 		this.product_id = product_id;
 	}
 
-	
-
-
 	public String getProduct_name() {
 		return product_name;
 	}
@@ -63,6 +66,13 @@ public class ProductResponse extends BaseResponse {
 		this.product_name = product_name;
 	}
 
+	public String getImg_path() {
+		return img_path;
+	}
+
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
+	}
 
 	public double getPrice() {
 		return price;
@@ -104,49 +114,5 @@ public class ProductResponse extends BaseResponse {
 		this.condition_product = condition_product;
 	}
 
-
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	/**
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	/**
-	 * @return the category
-	 */
-	public Category getCategory() {
-		return category;
-	}
-
-	/**
-	 * @param category the category to set
-	 */
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	
 
 }

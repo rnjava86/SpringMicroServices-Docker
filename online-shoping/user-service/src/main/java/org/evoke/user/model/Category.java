@@ -1,4 +1,4 @@
-package org.evoke.product.model;
+package org.evoke.user.model;
 
 import java.io.Serializable;
 import java.util.List;

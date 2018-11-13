@@ -18,20 +18,20 @@
 package org.evoke.user.web.controller;
 
 import org.apache.commons.lang.StringUtils;
-import org.evoke.user.model.BaseResponse;
 import org.evoke.user.model.LoginRequest;
+import org.evoke.user.model.UserResponse;
 import org.evoke.user.service.UserServiceImpl;
 import org.evoke.user.web.error.ErrorCode;
 import org.evoke.user.web.error.ErrorDescription;
 import org.evoke.user.web.error.ErrorType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**********************************************************************************
  * Name : UserController.java Desc : This is class is used for User actions
@@ -57,16 +57,16 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/register")
-	public BaseResponse add(@RequestBody LoginRequest request) {
+	public UserResponse add(@RequestBody LoginRequest request) {
 
-		BaseResponse response = null;
+		UserResponse response = null;
 		if (null != request && null != request.getUser()) {
 
 			response = userService.registerUser(request.getUser());
 
 		} else {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.USER_DETAILS_OBJECT_NOT_FOUND);
 			response.setErrorDesc(ErrorDescription.USER_EMIAL_EXIST);
 			response.setErrorType(ErrorType.APPLICATION_PRACTICE_ERROR);
@@ -78,15 +78,15 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/getUser")
-	public BaseResponse getUser(@RequestBody LoginRequest request) {
+	public UserResponse getUser(@RequestBody LoginRequest request) {
 
-		BaseResponse response = null;
+		UserResponse response = null;
 		if (null != request && null != request.getUser()) {
 
 			response = userService.getUser(request.getUser().getId());
 		} else {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.USER_NOT_FOUND);
 			response.setErrorDesc(ErrorDescription.USER_NOT_FOUND);
 			response.setErrorType(ErrorType.APPLICATION_PRACTICE_ERROR);
@@ -98,10 +98,10 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/login")
-	public BaseResponse loginUser(@RequestBody LoginRequest request) {
+	public UserResponse loginUser(@RequestBody LoginRequest request) {
 
 		
-		BaseResponse response = null;
+		UserResponse response = null;
 		if (null != request && null != request.getUser()) {
 
 			response = userService.userLogin(request.getUser());
@@ -109,14 +109,14 @@ public class UserController {
 		} else if (null != request.getUser().getEmail()
 				&& StringUtils.isNotEmpty(request.getUser().getEmail())) {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.EMAIL_NOT_VALID);
 			response.setErrorDesc(ErrorDescription.USER_EMAIL_NOT_PROVIDED);
 			response.setErrorType(ErrorType.APPLICATION_PRACTICE_ERROR);
 
 		} else {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.USER_NOT_FOUND);
 			response.setErrorDesc(ErrorDescription.USER_NOT_FOUND);
 			response.setErrorType(ErrorType.APPLICATION_PRACTICE_ERROR);

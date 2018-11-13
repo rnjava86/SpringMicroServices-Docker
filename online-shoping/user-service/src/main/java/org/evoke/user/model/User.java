@@ -58,7 +58,7 @@ public class User extends AbstractTimestampEntity implements Serializable {
 	private String contactNumber;
 
 
-	@NotBlank(message = "Please enter password!")
+	//@NotBlank(message = "Please enter password!")
 	private String password;
 
 	@NotNull
@@ -70,6 +70,12 @@ public class User extends AbstractTimestampEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "user_id", nullable = false)
 	private List<Address> addressLst;
+	
+	
+	/*@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "user_id", nullable = false)*/
+	@OneToMany(mappedBy = "user")
+	private List<Product> productLst;
 
 	public int getId() {
 		return id;
@@ -134,12 +140,19 @@ public class User extends AbstractTimestampEntity implements Serializable {
 	public void setAddressLst(List<Address> addressLst) {
 		this.addressLst = addressLst;
 	}
+	public List<Product> getProductLst() {
+		return productLst;
+	}
+
+	public void setProductLst(List<Product> productLst) {
+		this.productLst = productLst;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", contactNumber=" + contactNumber + ", password=" + password + ", roleLst=" + roleLst
-				+ ", addressLst=" + addressLst + "]";
+				+ ", addressLst=" + addressLst + ", productLst=" + productLst + "]";
 	}
 
 	

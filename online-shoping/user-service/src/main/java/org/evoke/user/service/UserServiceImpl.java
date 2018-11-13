@@ -2,17 +2,15 @@ package org.evoke.user.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
-import org.evoke.user.model.Address;
-import org.evoke.user.model.BaseResponse;
+import org.apache.commons.lang.StringUtils;
 import org.evoke.user.model.Role;
 import org.evoke.user.model.RoleEnum;
 import org.evoke.user.model.User;
+import org.evoke.user.model.UserResponse;
 import org.evoke.user.persistence.dao.UserRepository;
 import org.evoke.user.web.error.ErrorCode;
 import org.evoke.user.web.error.ErrorDescription;
@@ -43,14 +41,24 @@ public class UserServiceImpl implements UserService {
 	Session session;
 
 	@Override
-	public BaseResponse registerUser(final User user) {
+	public UserResponse registerUser(final User user) {
 
 		System.out.println("Checking if the user already exists");
-		BaseResponse response = null;
-		Map<String, Object> mapObject = null;
+		UserResponse response = null;
+		List<User> lstUser = null;
+		if( null == user.getPassword() || StringUtils.isEmpty(user.getPassword())){
+			
+			response = new UserResponse();
+			response.setErrorCode(ErrorCode.PASSWORD_NOT_VALID);
+			response.setErrorDesc(ErrorDescription.PASSWORD_NOT_VALID);
+			response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
+
+			return response;
+		}
+		
 		if (emailExist(user.getEmail())) {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.EMAIL_ALREADY_EXISTS);
 			response.setErrorDesc(ErrorDescription.USER_EMIAL_EXIST);
 			response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
@@ -91,15 +99,15 @@ public class UserServiceImpl implements UserService {
 			}
 			session.saveOrUpdate(newuser);
 			session.flush();
-			response = new BaseResponse();
-			mapObject = new HashMap<String, Object>();
+			session.evict(newuser);
+			response = new UserResponse();
+			lstUser = new ArrayList<User>();
 			newuser.setPassword(null);
-			mapObject.put("user", newuser);
-			response.setResponse(mapObject);
-
+			lstUser.add(newuser);
+			response.setUserLst(lstUser);
 		} catch (Exception ex) {
 			System.out.println("Exception in UserServiceImpl.registerUser() " + ex.getMessage());
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.EMAIL_ALREADY_EXISTS);
 			response.setErrorDesc(ex.getMessage());
 			response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
@@ -109,13 +117,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public BaseResponse userLogin(User user) {
-		BaseResponse response = null;
-		Map<String, Object> mapObject = null;
+	public UserResponse userLogin(User user) {
+		UserResponse response = null;
+		List<User> userLst = null;
 		if (emailExist(user.getEmail())) {
 			if (checkIfValidPassword(user)) {
-				response = new BaseResponse();
-				mapObject = new HashMap<String, Object>();
+				response = new UserResponse();
+				userLst = new ArrayList<User>();
 				Query query = session.createQuery("from User where email=:email");
 				query.setParameter("email", user.getEmail());
 				List<User> list = query.list();
@@ -125,11 +133,11 @@ public class UserServiceImpl implements UserService {
 				// user = repository.getUser(user.getEmail());
 				if (null != user) {
 					user.setPassword(null);
-					mapObject.put("user", user);
-					response.setResponse(mapObject);
+					userLst.add(user);
+					response.setUserLst(userLst);
 				} else {
 
-					response = new BaseResponse();
+					response = new UserResponse();
 					response.setErrorCode(ErrorCode.USER_NOT_FOUND);
 					response.setErrorDesc(ErrorDescription.USER_NOT_FOUND);
 					response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
@@ -137,7 +145,7 @@ public class UserServiceImpl implements UserService {
 
 			} else {
 
-				response = new BaseResponse();
+				response = new UserResponse();
 				response.setErrorCode(ErrorCode.PASSWORD_NOT_VALID);
 				response.setErrorDesc(ErrorDescription.PASSWORD_NOT_VALID);
 				response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
@@ -146,7 +154,7 @@ public class UserServiceImpl implements UserService {
 
 		} else {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.USER_NOT_FOUND);
 			response.setErrorDesc(ErrorDescription.USER_NOT_FOUND);
 			response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
@@ -169,25 +177,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public BaseResponse getUser(int userId) {
+	public UserResponse getUser(int userId) {
 		// TODO Auto-generated method stub
 		User userDetails = null;
-		BaseResponse response = null;
-		Map<String, Object> mapObject = null;
+		UserResponse response = null;
+		List<User> userLst = null;
 		try {
 
 			userDetails = session.get(User.class, userId);
 
 			if (null != userDetails) {
-				mapObject = new HashMap<String, Object>();
+				userLst = new ArrayList<User>();
 				userDetails.setPassword(null);
-				mapObject.put("user", userDetails);
-				response = new BaseResponse();
-				response.setResponse(mapObject);
+				userLst.add( userDetails);
+				response = new UserResponse();
+				response.setUserLst(userLst);
 
 			} else {
 
-				response = new BaseResponse();
+				response = new UserResponse();
 				response.setErrorCode(ErrorCode.USER_NOT_FOUND);
 				response.setErrorDesc(ErrorDescription.USER_NOT_FOUND);
 				response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
@@ -196,13 +204,13 @@ public class UserServiceImpl implements UserService {
 
 		} catch (NumberFormatException ne) {
 
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.VALID_NUMBER_REQUIRED);
 			response.setErrorDesc(ErrorDescription.VALID_NUMBER_REQUIRED);
 			response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
 
 		} catch (Exception e) {
-			response = new BaseResponse();
+			response = new UserResponse();
 			response.setErrorCode(ErrorCode.USER_NOT_FOUND);
 			response.setErrorDesc(ErrorDescription.USER_NOT_FOUND);
 			response.setErrorType(ErrorType.APPLICATION_BUSINESS_ERROR);
